@@ -7,7 +7,7 @@ public class HorseController : MonoBehaviour
     private bool _inputLocked;
 
     [SerializeField] private int _startLives;
-    private int _currentLives;
+    public int currentLives;
 
     //[SerializeField] private float _jumpForce;
     [SerializeField] private float _jumpDistance;
@@ -31,7 +31,7 @@ public class HorseController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
-        _currentLives = _startLives;
+        currentLives = _startLives;
     }
 
     // Update is called once per frame
@@ -135,8 +135,8 @@ public class HorseController : MonoBehaviour
         Debug.Log(collision.name);
         if (collision.CompareTag("Obstacle"))
         {
-            _currentLives--;
-            if (_currentLives <= 0)
+            currentLives--;
+            if (currentLives <= 0)
             {
                 Destroy(gameObject);
             }
