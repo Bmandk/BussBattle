@@ -20,7 +20,33 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject Horse = GameObject.Find("Horse");
+        PlayerScript HorseController = Horse.GetComponent<HorseController>();
+        if (HorseController == 5)
+        {
+            PlayerScript Image = self.GetComponent<Image>();
+            Image.SourceImage = Heart_5_1;
+        }
+        else if (HorseController == 4)
+        {
+            PlayerScript Image = self.GetComponent<Image>();
+            Image.SourceImage = Heart_4_1;
+        }
+        else if (HorseController == 3)
+        {
+            PlayerScript Image = self.GetComponent<Image>();
+            Image.SourceImage = Heart_3_1;
+        }
+        else if (HorseController == 2)
+        {
+            PlayerScript Image = self.GetComponent<Image>();
+            Image.SourceImage = Heart_2_1;
+        }
+        else if (HorseController == 1)
+        {
+            PlayerScript Image = self.GetComponent<Image>();
+            Image.SourceImage = Heart_1_1;
+        }
     }
 
     // Update is called once per frame
