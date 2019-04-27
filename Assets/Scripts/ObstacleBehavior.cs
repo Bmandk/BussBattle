@@ -5,7 +5,7 @@ using System.Collections;
 
 public class ObstacleBehavior : MonoBehaviour
 {
-    //Vector3 MoveSpeed = new Vector3(-2f, 0f, 0f);
+    //Vector3 MoveSpeed = new Vector3(-0.2f, 0f, 0f);
 
     // Start is called before the first frame update
     void Start()
