@@ -4,54 +4,142 @@ using UnityEngine;
 
 public class HorseController : MonoBehaviour
 {
-    [SerializeField] private float _jumpForce;
-    [SerializeField] private float _duckShrinkMultiplier;
-    [SerializeField] private float _timeToUnduck;
+    private bool _inputLocked;
+
+    [SerializeField] private int _startLives;
+    private int _currentLives;
+
+    //[SerializeField] private float _jumpForce;
+    [SerializeField] private float _jumpDistance;
+    [SerializeField] private float _jumpTime;
+    [SerializeField] private float _duckDistance;
+    [SerializeField] private float _duckTime;
+    [SerializeField] private float _dodgeDistance;
+    [SerializeField] private float _dodgeTime;
+    [SerializeField] private float _inputThresholdTime;
+    [SerializeField] private float _successLockTime;
+    [SerializeField] private float _failLockTime;
 
     private Rigidbody2D _rb;
 
     private BoxCollider2D _collider;
+
+    public SpriteRenderer s;
 
     // Start is called before the first frame update
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
-        //Conductor.Instance.onBeat.AddListener(OnBeat);
+        _currentLives = _startLives;
     }
 
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hitInfo = Physics2D.Raycast(_rb.position + _collider.offset, Vector2.down, _collider.bounds.extents.y + 0.1f);
+        float currentSongPosition = Conductor.Instance.SongPosition;
+        bool isWithinBeat = ((currentSongPosition % Conductor.Instance.Crotchet) > Conductor.Instance.Crotchet - _inputThresholdTime * Conductor.Instance.Crotchet &&
+            (currentSongPosition % Conductor.Instance.Crotchet) < Conductor.Instance.Crotchet + _inputThresholdTime * Conductor.Instance.Crotchet);
 
-        if (hitInfo.collider?.CompareTag("Ground") == true && Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-        }
+        if (isWithinBeat)
+            s.color = Color.red;
+        else
+            s.color = Color.white;
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (!_inputLocked)
         {
-            //float distanceRemoved = collider.size.y * duckShrinkMultiplier;
-            //collider.size = new Vector2(collider.size.x, distanceRemoved);
-            //collider.offset = new Vector2(collider.offset.x, collider.offset.y - distanceRemoved/2);
-            float scaleChanged = transform.localScale.y * _duckShrinkMultiplier;
-            transform.localScale = new Vector3(transform.localScale.x, scaleChanged, transform.localScale.z);
-            _rb.MovePosition(_rb.position + Vector2.down * scaleChanged);
-            StartCoroutine(Unduck(scaleChanged, _timeToUnduck));
+            RaycastHit2D hitInfo = Physics2D.Raycast(_rb.position + _collider.offset, Vector2.down, _collider.bounds.extents.y + 0.1f);
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (isWithinBeat)
+                {
+                    LockInput(_successLockTime);
+                    StartCoroutine(Jump());
+                }
+                else
+                {
+                    LockInput(_failLockTime);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (isWithinBeat)
+                {
+                    LockInput(_successLockTime);
+                    StartCoroutine(Duck());
+                }
+                else
+                {
+                    LockInput(_failLockTime);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (isWithinBeat)
+                {
+                    LockInput(_successLockTime);
+                    StartCoroutine(Dodge());
+                }
+                else
+                {
+                    LockInput(_failLockTime);
+                }
+            }
         }
     }
 
-    private IEnumerator Unduck(float distanceRemoved, float time)
+    private IEnumerator Duck()
     {
-        yield return new WaitForSeconds(time);
-        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y + distanceRemoved, transform.localScale.z);
-        //collider.size = new Vector2(collider.size.x, collider.size.y + distanceRemoved);
-        //collider.offset = new Vector2(collider.offset.x, collider.offset.y + distanceRemoved / 2);
+        _collider.size = new Vector2(_collider.size.x, _collider.size.y - _duckDistance * 2);
+        _collider.offset = new Vector2(_collider.offset.x, _collider.offset.y + _duckDistance);
+        _rb.MovePosition(_rb.position + Vector2.down * _duckDistance);
+
+        yield return new WaitForSeconds(_duckTime * Conductor.Instance.Crotchet);
+
+        _collider.offset = new Vector2(_collider.offset.x, _collider.offset.y - _duckDistance);
+        _collider.size = new Vector2(_collider.size.x, _collider.size.y + _duckDistance * 2);
+        _rb.MovePosition(_rb.position + Vector2.up * _duckDistance);
     }
 
-    private void OnBeat(int beatNumber, int totalBeatNumber)
+    private IEnumerator Jump()
     {
+        _rb.MovePosition(_rb.position + Vector2.up * _jumpDistance);
+        yield return new WaitForSeconds(_jumpTime * Conductor.Instance.Crotchet);
+        _rb.MovePosition(_rb.position + Vector2.down * _jumpDistance);
+    }
 
+    private IEnumerator Dodge()
+    {
+        _rb.MovePosition(_rb.position + Vector2.right * _dodgeDistance);
+        yield return new WaitForSeconds(_dodgeTime * Conductor.Instance.Crotchet);
+        _rb.MovePosition(_rb.position + Vector2.left * _dodgeDistance);
+    }
+
+    private void LockInput(float time)
+    {
+        _inputLocked = true;
+        StartCoroutine(WaitForLockInput(time));
+    }
+
+    private IEnumerator WaitForLockInput(float time)
+    {
+        yield return new WaitForSeconds(time * Conductor.Instance.Crotchet);
+        _inputLocked = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.name);
+        if (collision.CompareTag("Obstacle"))
+        {
+            _currentLives--;
+            if (_currentLives <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

@@ -19,14 +19,15 @@ public class Conductor : MonoBehaviour
     [SerializeField] private float _bpm;
     [SerializeField] private float _offset;
     private float _dsptimesong;
-    private float _crotchet;
     private float _lastBeat;
 
     [SerializeField] private AudioClip song;
 
     private AudioSource audioSource;
 
-    public float songPosition { get; private set; }
+    public float SongPosition { get; private set; }
+    public float Crotchet { get; private set; }
+    public float BPM { get => _bpm; private set => _bpm = value; }
 
     public static Conductor Instance { get; private set; }
 
@@ -41,7 +42,7 @@ public class Conductor : MonoBehaviour
         Instance = this;
 
         audioSource = GetComponent<AudioSource>();
-        _crotchet = 60f / _bpm;
+        Crotchet = 60f / BPM;
 
         //foreach (FrameAnimator fa in GameObject.FindObjectsOfType<FrameAnimator>())
         //{
@@ -49,12 +50,12 @@ public class Conductor : MonoBehaviour
         //}
     }
 
-    void StartSong(AudioClip song)
+    private void StartSong(AudioClip song)
     {
         audioSource.clip = song;
-        audioSource.Play();
         _dsptimesong = (float)AudioSettings.dspTime;
-        _lastBeat = -_crotchet;
+        audioSource.Play();
+        _lastBeat = -_offset;
         _beatNumber = 0;
     }
 
@@ -68,11 +69,12 @@ public class Conductor : MonoBehaviour
 
         if (audioSource.isPlaying)
         {
-            songPosition = ((float)AudioSettings.dspTime - _dsptimesong) * audioSource.pitch - _offset;
+            SongPosition = ((float)AudioSettings.dspTime - _dsptimesong) * audioSource.pitch - _offset;
 
-            if (songPosition > _lastBeat + _crotchet)
+            if (SongPosition > _lastBeat + Crotchet)
             {
-                _lastBeat += _crotchet;
+                Debug.Log(_lastBeat);
+                _lastBeat += Crotchet;
                 OnBeat();
             }
         }

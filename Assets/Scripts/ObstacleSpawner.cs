@@ -3,28 +3,66 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
-public class ObstacleSpawner : MonoBehaviour
+[System.Serializable]
+public class Obstacle
 {
-    public GameObject Obstacle;
-    public float SpawnRate = -1;
-    public Vector3 CurrentPosition = new Vector3(0f, 0f, 0f);
+    public string name;
 
-    // Start is called before the first frame update
-    void Start()
+    public int warningBeats;
+
+    public float timeToMove;
+
+    public Transform spawnpoint;
+
+    public GameObject prefab;
+
+    public AudioClip warningSound;
+    public AudioClip beatSound;
+}
+
+public class ObstacleSpawner : MonoBehaviour, IBeat
+{
+    public List<Obstacle> obstacles = new List<Obstacle>();
+
+    public Transform beatPoint;
+
+    private double _nextWarning = Mathf.Infinity;
+    private double _nextSpawn = Mathf.Infinity;
+
+    private AudioSource audioSource;
+
+    private Obstacle currentObstacle;
+
+    void Awake()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (SpawnRate < 0)
+        if (_nextWarning < AudioSettings.dspTime)
         {
-            GameObject ObjectObstacle = GameObject.Instantiate(Obstacle, CurrentPosition, Quaternion.identity) as GameObject;
-            //CurrentPosition += new Vector3(1f, 0f, 0f);
-            SpawnRate = 2;
+            _nextWarning = Mathf.Infinity;
+            _nextSpawn = AudioSettings.dspTime + Conductor.Instance.Crotchet * currentObstacle.warningBeats - currentObstacle.timeToMove;
         }
 
-        SpawnRate = SpawnRate - Time.deltaTime;
+        if (_nextSpawn < AudioSettings.dspTime)
+        {
+            _nextSpawn = Mathf.Infinity;
+            GameObject obstacle = Instantiate(currentObstacle.prefab, currentObstacle.spawnpoint.position, currentObstacle.spawnpoint.rotation);
+            ObstacleBehaviour o = obstacle.GetComponent<ObstacleBehaviour>();
+            o?.Initialize(currentObstacle.timeToMove, beatPoint);
+        }
+    }
+
+    public void OnBeat(int beatNumber, int totalBeatNumber)
+    {
+        if (beatNumber == 4)
+        {
+            currentObstacle = obstacles[Random.Range(0, obstacles.Count)];
+            _nextWarning = AudioSettings.dspTime + Conductor.Instance.Crotchet;
+            audioSource.clip = currentObstacle.warningSound;
+            audioSource.PlayScheduled(_nextWarning);
+        }
     }
 }

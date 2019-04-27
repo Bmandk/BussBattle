@@ -29,7 +29,6 @@ public class FrameAnimator : MonoBehaviour, IBeat
     public void OnBeat(int beatNumber, int totalBeatNumber)
     {
         _frameCounter = (totalBeatNumber - 1) % 2;
-        Debug.Log(_frameCounter);
         _sr.sprite = _currentAnimation.frames[_frameCounter];
     }
 }
