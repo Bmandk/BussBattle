@@ -8,12 +8,12 @@ public class ObstacleBehavior : MonoBehaviour
     public float MoveSpeed = 2f;
 
     Vector2 MoveLeft = new Vector2(-10f, 0f);
-    Rigidbody2D RB;
+    Rigidbody2D RB = GetComponent<Rigidbody2D>;
 
     // Start is called before the first frame update
     void Start()
     {
-        Rigidbody2D RB = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame

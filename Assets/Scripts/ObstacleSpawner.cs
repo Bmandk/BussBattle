@@ -6,8 +6,10 @@ using System.Collections;
 public class ObstacleSpawner : MonoBehaviour
 {
     public GameObject Obstacle;
-    public float SpawnRate = -1f;
-    public Vector3 CurrentPosition = new Vector3(0f, 0f, 0f);
+    public Vector2 CurrentPosition = new Vector3(0f, 0f);
+    public float SpawnTimer = 2f;
+
+    float SpawnRate = -1f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             GameObject ObjectObstacle = GameObject.Instantiate(Obstacle, CurrentPosition, Quaternion.identity) as GameObject;
             //CurrentPosition += new Vector3(1f, 0f, 0f);
-            SpawnRate = 2f;
+            SpawnRate = SpawnTimer;
         }
 
         SpawnRate = SpawnRate - Time.deltaTime;
