@@ -28,7 +28,7 @@ public class UIController : MonoBehaviour
     {
         GameObject Horse = GameObject.Find("Horse");
         HorseController HorseController = Horse.GetComponent<HorseController>();
-        Vector3 HeartScale = new Vector3(1f * HorseController.currentLives, 1f, 1f);
+        Vector3 HeartScale = new Vector3(0.8f * HorseController.currentLives, 0.8f, 0.8f);
 
         if (HorseController.currentLives >= 5)
         {
