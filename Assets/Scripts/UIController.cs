@@ -20,38 +20,50 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject Horse = GameObject.Find("Horse");
-        PlayerScript HorseController = Horse.GetComponent<HorseController>();
-        if (HorseController == 5)
-        {
-            PlayerScript Image = self.GetComponent<Image>();
-            Image.SourceImage = Heart_5_1;
-        }
-        else if (HorseController == 4)
-        {
-            PlayerScript Image = self.GetComponent<Image>();
-            Image.SourceImage = Heart_4_1;
-        }
-        else if (HorseController == 3)
-        {
-            PlayerScript Image = self.GetComponent<Image>();
-            Image.SourceImage = Heart_3_1;
-        }
-        else if (HorseController == 2)
-        {
-            PlayerScript Image = self.GetComponent<Image>();
-            Image.SourceImage = Heart_2_1;
-        }
-        else if (HorseController == 1)
-        {
-            PlayerScript Image = self.GetComponent<Image>();
-            Image.SourceImage = Heart_1_1;
-        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        GameObject Horse = GameObject.Find("Horse");
+        HorseController HorseController = Horse.GetComponent<HorseController>();
+        Vector3 HeartScale = new Vector3(1f * HorseController.currentLives, 1f, 1f);
+
+        if (HorseController.currentLives >= 5)
+        {
+            RectTransform recttransform = GetComponent<RectTransform>();
+            recttransform.localScale = HeartScale;
+            Image image = GetComponent<Image>();
+            image.sprite = Heart_5_1;
+        }
+        else if (HorseController.currentLives == 4)
+        {
+            RectTransform recttransform = GetComponent<RectTransform>();
+            recttransform.localScale = HeartScale;
+            Image image = GetComponent<Image>();
+            image.sprite = Heart_4_1;
+        }
+        else if (HorseController.currentLives == 3)
+        {
+            RectTransform recttransform = GetComponent<RectTransform>();
+            recttransform.localScale = HeartScale;
+            Image image = GetComponent<Image>();
+            image.sprite = Heart_3_1;
+        }
+        else if (HorseController.currentLives == 2)
+        {
+            RectTransform recttransform = GetComponent<RectTransform>();
+            recttransform.localScale = HeartScale;
+            Image image = GetComponent<Image>();
+            image.sprite = Heart_2_1;
+        }
+        else if (HorseController.currentLives == 1)
+        {
+            RectTransform recttransform = GetComponent<RectTransform>();
+            recttransform.localScale = HeartScale;
+            Image image = GetComponent<Image>();
+            image.sprite = Heart_1_1;
+        }
     }
 }
