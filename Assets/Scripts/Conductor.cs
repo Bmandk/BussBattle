@@ -73,7 +73,6 @@ public class Conductor : MonoBehaviour
 
             if (SongPosition > _lastBeat + Crotchet)
             {
-                Debug.Log(_lastBeat);
                 _lastBeat += Crotchet;
                 OnBeat();
             }
