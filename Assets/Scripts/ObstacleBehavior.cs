@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
-public class Obstacle : MonoBehaviour
+public class ObstacleBehavior : MonoBehaviour
 {
-    Vector3 MoveSpeed = new Vector3(2f, 0f, 0f);
+    //Vector3 MoveSpeed = new Vector3(-2f, 0f, 0f);
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +16,6 @@ public class Obstacle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(transform.position += MoveSpeed * Time.deltaTime);
+        //transform.Translate(transform.position += MoveSpeed * Time.deltaTime);
     }
 }

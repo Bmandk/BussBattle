@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2762443630171490405}
   - component: {fileID: 3772496016672235136}
-  - component: {fileID: -707665268602058157}
+  - component: {fileID: -1126360078781987550}
+  - component: {fileID: -6601649714840698075}
   m_Layer: 0
   m_Name: Prefab_Obstacle
   m_TagString: Untagged
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-707665268602058157
+--- !u!114 &-1126360078781987550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,3 +93,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db29787675d9d7540aa8686427973220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!54 &-6601649714840698075
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076496155874054698}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

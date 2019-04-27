@@ -21,7 +21,7 @@ public class ObstacleSpawner : MonoBehaviour
         if (SpawnRate < 0)
         {
             GameObject ObjectObstacle = GameObject.Instantiate(Obstacle, CurrentPosition, Quaternion.identity) as GameObject;
-            CurrentPosition += new Vector3(1f, 0f, 0f);
+            //CurrentPosition += new Vector3(1f, 0f, 0f);
             SpawnRate = 2;
         }
 
