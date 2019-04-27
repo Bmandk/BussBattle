@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class FrameAnimator : MonoBehaviour
+public class FrameAnimator : MonoBehaviour, IBeat
 {
     [System.Serializable]
     private class FrameAnimation

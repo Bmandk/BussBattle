@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 [System.Serializable]
 public class BeatEvent : UnityEvent<int, int>
@@ -11,7 +12,7 @@ public class BeatEvent : UnityEvent<int, int>
 
 public class Conductor : MonoBehaviour
 {
-    public BeatEvent onBeat;
+    //public BeatEvent onBeat;
 
     private int _beatNumber;
 
@@ -42,10 +43,10 @@ public class Conductor : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         _crotchet = 60f / _bpm;
 
-        foreach (FrameAnimator fa in GameObject.FindObjectsOfType<FrameAnimator>())
-        {
-            onBeat.AddListener(fa.OnBeat);
-        }
+        //foreach (FrameAnimator fa in GameObject.FindObjectsOfType<FrameAnimator>())
+        //{
+        //    onBeat.AddListener(fa.OnBeat);
+        //}
     }
 
     void StartSong(AudioClip song)
@@ -80,6 +81,10 @@ public class Conductor : MonoBehaviour
     private void OnBeat()
     {
         _beatNumber++;
-        onBeat.Invoke((_beatNumber - 1) % 4 + 1, _beatNumber);
+        foreach (IBeat b in FindObjectsOfType<MonoBehaviour>().OfType<IBeat>())
+        {
+            b.OnBeat((_beatNumber - 1) % 4 + 1, _beatNumber);
+        }
+        //onBeat.Invoke((_beatNumber - 1) % 4 + 1, _beatNumber);
     }
 }
