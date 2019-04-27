@@ -5,17 +5,20 @@ using System.Collections;
 
 public class ObstacleBehavior : MonoBehaviour
 {
-    //Vector3 MoveSpeed = new Vector3(-0.2f, 0f, 0f);
+    public float MoveSpeed = 2f;
+
+    Vector2 MoveLeft = new Vector2(-10f, 0f);
+    Rigidbody2D RB;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Rigidbody2D RB = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //transform.Translate(transform.position += MoveSpeed * Time.deltaTime);
+        RB.MovePosition(RB.position += MoveLeft * MoveSpeed * Time.fixedDeltaTime);
     }
 }
