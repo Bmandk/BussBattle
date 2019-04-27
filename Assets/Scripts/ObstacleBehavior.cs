@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 
-public class Obstacle : MonoBehaviour
+public class ObstacleBehavior : MonoBehaviour
 {
     Vector3 MoveSpeed = new Vector3(2f, 0f, 0f);
 

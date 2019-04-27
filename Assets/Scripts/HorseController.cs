@@ -17,7 +17,7 @@ public class HorseController : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _collider = GetComponent<BoxCollider2D>();
-        Conductor.Instance.onBeat.AddListener(OnBeat);
+        //Conductor.Instance.onBeat.AddListener(OnBeat);
     }
 
     // Update is called once per frame
