@@ -58,8 +58,6 @@ public class GameManager : MonoBehaviour, IBeat
 
     public void OnBeat(int beatNumber, int totalBeatNumber, int songEnd)
     {
-        Debug.Log(totalBeatNumber);
-
         switch (stopState)
         {
             case StopState.Stopping:
