@@ -1,0 +1,7 @@
+Todo:
+Visual indicators
+Loss/Win screen
+Implement intro
+Mountains/Background
+Controller support
+Stop scrolling at checkpoint

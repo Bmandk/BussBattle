@@ -60,7 +60,6 @@ public class ObstacleSpawner : MonoBehaviour, IBeat
 
         if (beatNumber == 4)
         {
-            Debug.Log("Spawning");
             currentObstacle = obstacles[Random.Range(0, obstacles.Count)];
             _nextWarning = AudioSettings.dspTime + Conductor.Instance.Crotchet;
             audioSource.clip = currentObstacle.warningSounds[(GameManager.Instance.currentLevel / 2)];
