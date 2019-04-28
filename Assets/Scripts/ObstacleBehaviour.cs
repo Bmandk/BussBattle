@@ -22,6 +22,9 @@ public class ObstacleBehaviour : MonoBehaviour
         float endXPosition = endPosition.position.x;
         float songStartPosition = Conductor.Instance.SongPosition;
         float songEndPosition = songStartPosition + Conductor.Instance.Crotchet * timeToMove;
+        float timeToBeat = songEndPosition - songStartPosition;
+        float distanceToBeat = endXPosition - startXPosition;
+        float movementPerSecond = distanceToBeat / timeToBeat;
         float xPosition = 0;
         while (true)
         {
@@ -31,9 +34,10 @@ public class ObstacleBehaviour : MonoBehaviour
             // y1 = endXPosition
             // x0 = songStartPostion
             // x1 = songEndPosition
-            float currentSongPosition = Conductor.Instance.SongPosition;
-            xPosition = (startXPosition * (songEndPosition - currentSongPosition) + endXPosition * (currentSongPosition - songStartPosition)) / (songEndPosition - songStartPosition);
-            _rb.MovePosition(new Vector2(xPosition, _rb.position.y));
+            //float currentSongPosition = Conductor.Instance.SongPosition;
+            //xPosition = (startXPosition * (songEndPosition - currentSongPosition) + endXPosition * (currentSongPosition - songStartPosition)) / (songEndPosition - songStartPosition);
+            //_rb.MovePosition(new Vector2(xPosition, _rb.position.y));
+            _rb.MovePosition(_rb.position + Vector2.right * movementPerSecond * Time.deltaTime);
             yield return 0;
         }
     }

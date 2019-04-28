@@ -6,8 +6,6 @@ using System.Collections;
 [System.Serializable]
 public class Obstacle
 {
-    public string name;
-
     public int warningBeats;
 
     public float timeToMove;
@@ -16,7 +14,7 @@ public class Obstacle
 
     public GameObject prefab;
 
-    public AudioClip warningSound;
+    public AudioClip[] warningSounds;
     public AudioClip beatSound;
 }
 
@@ -43,7 +41,7 @@ public class ObstacleSpawner : MonoBehaviour, IBeat
         if (_nextWarning < AudioSettings.dspTime)
         {
             _nextWarning = Mathf.Infinity;
-            _nextSpawn = AudioSettings.dspTime + Conductor.Instance.Crotchet * currentObstacle.warningBeats - currentObstacle.timeToMove;
+            _nextSpawn = AudioSettings.dspTime + Conductor.Instance.Crotchet * currentObstacle.warningBeats - currentObstacle.timeToMove * Conductor.Instance.Crotchet;
         }
 
         if (_nextSpawn < AudioSettings.dspTime)
@@ -55,13 +53,17 @@ public class ObstacleSpawner : MonoBehaviour, IBeat
         }
     }
 
-    public void OnBeat(int beatNumber, int totalBeatNumber)
+    public void OnBeat(int beatNumber, int totalBeatNumber, int songEnd)
     {
+        if (!GameManager.Instance.isInLevel || totalBeatNumber + 4 > songEnd)
+            return;
+
         if (beatNumber == 4)
         {
+            Debug.Log("Spawning");
             currentObstacle = obstacles[Random.Range(0, obstacles.Count)];
             _nextWarning = AudioSettings.dspTime + Conductor.Instance.Crotchet;
-            audioSource.clip = currentObstacle.warningSound;
+            audioSource.clip = currentObstacle.warningSounds[(GameManager.Instance.currentLevel / 2)];
             audioSource.PlayScheduled(_nextWarning);
         }
     }

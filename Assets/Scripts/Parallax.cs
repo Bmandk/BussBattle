@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundScroll : MonoBehaviour
+public class Parallax : MonoBehaviour
 {
     public float scrollSpeed;
     public float tileSize;
@@ -16,7 +16,7 @@ public class BackgroundScroll : MonoBehaviour
 
     void Update()
     {
-        float newPosition = Mathf.Repeat(Time.time * scrollSpeed * GameManager.Instance.currentScrollSpeed, tileSize);
+        float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSize);
         transform.position = startPosition + Vector2.left * newPosition;
     }
 }

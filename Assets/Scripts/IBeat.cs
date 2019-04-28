@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IBeat
 {
-    void OnBeat(int beatNumber, int totalBeatNumber);
+    void OnBeat(int beatNumber, int totalBeatNumber, int songEnd);
 }

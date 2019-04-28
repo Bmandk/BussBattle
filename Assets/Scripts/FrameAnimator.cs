@@ -26,7 +26,7 @@ public class FrameAnimator : MonoBehaviour, IBeat
         _currentAnimation = _animations[0];
     }
 
-    public void OnBeat(int beatNumber, int totalBeatNumber)
+    public void OnBeat(int beatNumber, int totalBeatNumber, int songEnd)
     {
         _frameCounter = (totalBeatNumber - 1) % 2;
         _sr.sprite = _currentAnimation.frames[_frameCounter];
