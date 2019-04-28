@@ -9,7 +9,7 @@ public class Song
 {
     public AudioClip clip;
     public float bpm;
-    public float offset;
+    //public float offset;
     public int beatsAmount;
 }
 
@@ -22,6 +22,7 @@ public class Conductor : MonoBehaviour
     
     private float _dsptimesong;
     private float _lastBeat;
+    [SerializeField] private float _offset;
 
     private AudioSource audioSource;
 
@@ -50,7 +51,7 @@ public class Conductor : MonoBehaviour
         currentSong = songs[level];
         _dsptimesong = (float)AudioSettings.dspTime;
         Crotchet = 60f / (BPM * audioSource.pitch);
-        _lastBeat = -currentSong.offset;
+        _lastBeat = -_offset;
         _beatNumber = 1;
         audioSource.clip = currentSong.clip;
         audioSource.Play();
@@ -61,7 +62,7 @@ public class Conductor : MonoBehaviour
     {
         if (audioSource.isPlaying)
         {
-            SongPosition = ((float)AudioSettings.dspTime - _dsptimesong) * audioSource.pitch - currentSong.offset;
+            SongPosition = ((float)AudioSettings.dspTime - _dsptimesong) * audioSource.pitch - _offset;
 
             if (SongPosition > _lastBeat + Crotchet)
             {

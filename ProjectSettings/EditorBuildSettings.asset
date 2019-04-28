@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OscarScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/JonathanScene.unity
+    guid: c4fead997fc2e29498b58153e35b70da
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: 334fa6c574acb144fbb9b7413b671856
+  - enabled: 1
+    path: Assets/Scenes/LoseScene.unity
+    guid: 4c55db9a18e28e9429d727f8149395cf
   m_configObjects: {}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum StopState { Stopping, Idle, Going, Waiting }
 
@@ -46,14 +47,16 @@ public class GameManager : MonoBehaviour, IBeat
         currentScrollSpeed = scrollSpeed;
     }
 
+    void Start()
+    {
+        Conductor.Instance?.StartSong(currentLevel);
+        isInLevel = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Conductor.Instance.StartSong(currentLevel);
-            isInLevel = true;
-        }
+
     }
 
     public void OnBeat(int beatNumber, int totalBeatNumber, int songEnd)
@@ -70,12 +73,12 @@ public class GameManager : MonoBehaviour, IBeat
                     currentLevel++;
                     if (currentLevel > Conductor.Instance.songs.Count - 1)
                     {
-                        Debug.Log("The end");
-                        return;
+                        SceneManager.LoadScene("WinScene");
                     }
                     Conductor.Instance.StartSong(currentLevel);
                     stopState = StopState.Waiting;
                     stop.transform.position = stopStartPosition;
+                    horse.currentLives = horse.startLives;
                     isInLevel = true;
                 }
                 break;
@@ -110,6 +113,7 @@ public class GameManager : MonoBehaviour, IBeat
         }
 
         stopState = StopState.Idle;
+        currentScrollSpeed = 0;
         startTime = Time.time;
         endTime = Time.time + timeForCheckpoint * waitingTime;
         
@@ -118,6 +122,7 @@ public class GameManager : MonoBehaviour, IBeat
             yield return 0;
         }
 
+        currentScrollSpeed = 1;
         stopState = StopState.Going;
         startTime = Time.time;
         endTime = timeForCheckpoint * goingTime;
