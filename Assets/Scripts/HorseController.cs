@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HorseController : MonoBehaviour
 {
@@ -137,7 +138,11 @@ public class HorseController : MonoBehaviour
             currentLives--;
             if (currentLives <= 0)
             {
-                Destroy(gameObject);
+                SceneManager.LoadScene("LoseScene");
+            }
+            else
+            {
+                GetComponent<AudioSource>().Play();
             }
         }
     }

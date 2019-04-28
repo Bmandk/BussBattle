@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Obstacle
@@ -13,6 +14,7 @@ public class Obstacle
     public Transform spawnpoint;
 
     public GameObject prefab;
+    public GameObject warningPrefab;
 
     public AudioClip[] warningSounds;
     public AudioClip beatSound;
@@ -41,7 +43,7 @@ public class ObstacleSpawner : MonoBehaviour, IBeat
         if (_nextWarning < AudioSettings.dspTime)
         {
             _nextWarning = Mathf.Infinity;
-            _nextSpawn = AudioSettings.dspTime + Conductor.Instance.Crotchet * currentObstacle.warningBeats - currentObstacle.timeToMove * Conductor.Instance.Crotchet;
+            Instantiate(currentObstacle.warningPrefab, currentObstacle.warningPrefab.transform.position, Quaternion.identity);
         }
 
         if (_nextSpawn < AudioSettings.dspTime)
@@ -62,6 +64,7 @@ public class ObstacleSpawner : MonoBehaviour, IBeat
         {
             currentObstacle = obstacles[Random.Range(0, obstacles.Count)];
             _nextWarning = AudioSettings.dspTime + Conductor.Instance.Crotchet;
+            _nextSpawn = _nextWarning + Conductor.Instance.Crotchet * (currentObstacle.warningBeats - 1) - currentObstacle.timeToMove * Conductor.Instance.Crotchet;
             audioSource.clip = currentObstacle.warningSounds[(GameManager.Instance.currentLevel / 2)];
             audioSource.PlayScheduled(_nextWarning);
         }

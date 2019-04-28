@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22fbdbc3e230d34c837cc27df133027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useGlobalScroll: 0
   scrollSpeed: 2.2
   tileSize: 22
 --- !u!212 &53902449
@@ -448,7 +449,7 @@ MonoBehaviour:
   stopTarget: {fileID: 1163734843}
   goingTarget: {fileID: 1197242052}
   stop: {fileID: 538015289}
-  horse: {fileID: 0}
+  horse: {fileID: 511224825}
 --- !u!4 &432213281
 Transform:
   m_ObjectHideFlags: 0
@@ -556,6 +557,7 @@ GameObject:
   - component: {fileID: 511224824}
   - component: {fileID: 511224823}
   - component: {fileID: 511224828}
+  - component: {fileID: 511224829}
   m_Layer: 2
   m_Name: Horse
   m_TagString: Untagged
@@ -625,11 +627,11 @@ MonoBehaviour:
   startLives: 5
   currentLives: 0
   _jumpDistance: 1
-  _jumpTime: 0.7
+  _jumpTime: 1
   _duckDistance: 1
   _duckTime: 1
   _dodgeDistance: 4
-  _dodgeTime: 1
+  _dodgeTime: 1.3
   _inputThresholdTime: 0.3
   _successLockTime: 0.3
   _failLockTime: 1
@@ -713,6 +715,102 @@ MonoBehaviour:
     frames:
     - {fileID: 21300000, guid: 2b683f623be036840ab92449617f4d51, type: 3}
     - {fileID: 21300000, guid: 02b8544bcc528ed4fbebef181b08c5c0, type: 3}
+--- !u!82 &511224829
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511224822}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a80dc95a6923b4545a0f65ba8f0270ef, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.715
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &538015289
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,6 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22fbdbc3e230d34c837cc27df133027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useGlobalScroll: 0
   scrollSpeed: 5
   tileSize: 25
 --- !u!212 &691126554
@@ -1138,7 +1237,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 956824416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.53, y: 0, z: 0}
+  m_LocalPosition: {x: -0.02, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1553227740}
@@ -1313,6 +1412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22fbdbc3e230d34c837cc27df133027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useGlobalScroll: 1
   scrollSpeed: 20
   tileSize: 24
 --- !u!212 &1116370695
@@ -1851,9 +1951,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacles:
   - warningBeats: 3
-    timeToMove: 0.4
+    timeToMove: 1.2
     spawnpoint: {fileID: 378762249}
     prefab: {fileID: 5684108832719237125, guid: 1c984e3ea6c03b64c847aefaa4c6470e,
+      type: 3}
+    warningPrefab: {fileID: 8809732370932091895, guid: e3b41bd8e8b29274b94b58243b100e93,
       type: 3}
     warningSounds:
     - {fileID: 8300000, guid: f9f94d9d5c6eba245bd699264acb6b9a, type: 3}
@@ -1863,9 +1965,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 04c1a92603a46de47a88cdb69c7dbced, type: 3}
     beatSound: {fileID: 0}
   - warningBeats: 3
-    timeToMove: 0.4
+    timeToMove: 1
     spawnpoint: {fileID: 924181396}
     prefab: {fileID: 5684108832719237125, guid: 0df84b3ca6451c24790de535cd1bbfea,
+      type: 3}
+    warningPrefab: {fileID: 7338655095550557686, guid: 6ca2e315beaa74e44aa2cadf4dfcac00,
       type: 3}
     warningSounds:
     - {fileID: 8300000, guid: 6c2332b9aba726f4c8be16b9fa647ccc, type: 3}
@@ -1875,9 +1979,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 9b77922b0af61e54f998e1f2dd0344ea, type: 3}
     beatSound: {fileID: 0}
   - warningBeats: 3
-    timeToMove: 0.4
+    timeToMove: 0
     spawnpoint: {fileID: 1573242708}
     prefab: {fileID: 4682842358804382480, guid: c1a2d263964cc7745944f0a4cc00a89a,
+      type: 3}
+    warningPrefab: {fileID: 6110357809942322710, guid: 9ddb9adfee8df5643bd1fa0ee62fd19b,
       type: 3}
     warningSounds:
     - {fileID: 8300000, guid: e00922e5ed5760b4eb76fcbaf76902f0, type: 3}
@@ -1997,6 +2103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22fbdbc3e230d34c837cc27df133027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useGlobalScroll: 1
   scrollSpeed: 20
   tileSize: 22
 --- !u!212 &1574426214
@@ -2091,6 +2198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22fbdbc3e230d34c837cc27df133027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useGlobalScroll: 1
   scrollSpeed: 20
   tileSize: 30
 --- !u!212 &1619376163
@@ -2185,7 +2293,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d3f9b2afa36d1124ebfa0f89e87f145b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.738
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2284,45 +2392,36 @@ MonoBehaviour:
   songs:
   - clip: {fileID: 8300000, guid: 88f329782c348e24fa7a07dc2301d6e0, type: 3}
     bpm: 110
-    offset: 0.4
     beatsAmount: 33
   - clip: {fileID: 8300000, guid: c20eddc65b09e79438651350cd606322, type: 3}
     bpm: 110
-    offset: 0.4
     beatsAmount: 17
   - clip: {fileID: 8300000, guid: 733772893ba2b3b4eb4b4f7a8fd4d7ee, type: 3}
     bpm: 120
-    offset: 0.4
     beatsAmount: 33
   - clip: {fileID: 8300000, guid: 25e250fc77363464abef1f67527eb4a9, type: 3}
     bpm: 120
-    offset: 0.4
     beatsAmount: 9
   - clip: {fileID: 8300000, guid: 1f6c7ce400cd7594587806e66b8b9521, type: 3}
     bpm: 130
-    offset: 0.4
     beatsAmount: 33
   - clip: {fileID: 8300000, guid: ccf9ac5da0279f74aaebab6e7c26ca6d, type: 3}
     bpm: 130
-    offset: 0.4
     beatsAmount: 17
   - clip: {fileID: 8300000, guid: b21cb056203a5064c8211b6759171d95, type: 3}
     bpm: 140
-    offset: 0.4
     beatsAmount: 33
   - clip: {fileID: 8300000, guid: b8e19757f25a99547974b36fb36364f4, type: 3}
     bpm: 140
-    offset: 0.4
     beatsAmount: 17
   - clip: {fileID: 8300000, guid: fabe173445fc4d04cbaef75fa6a4cf39, type: 3}
     bpm: 160
-    offset: 0.4
     beatsAmount: 65
   - clip: {fileID: 8300000, guid: 1391c37b23acb9b44a20f667b25b9192, type: 3}
     bpm: 160
-    offset: 0.4
     beatsAmount: 17
   _beatNumber: 0
+  _offset: 0.2
 --- !u!4 &1714378700
 Transform:
   m_ObjectHideFlags: 0
