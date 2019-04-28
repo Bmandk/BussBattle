@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     // All the sprites for the hearts based on your health
-    public Sprite Heart_1_1;
-    public Sprite Heart_1_2;
-    public Sprite Heart_2_1;
-    public Sprite Heart_2_2;
-    public Sprite Heart_3_1;
-    public Sprite Heart_3_2;
-    public Sprite Heart_4_1;
-    public Sprite Heart_4_2;
-    public Sprite Heart_5_1;
-    public Sprite Heart_5_2;
+    public Sprite Heart1_1;
+    public Sprite Heart1_2;
+    public Sprite Heart2_1;
+    public Sprite Heart2_2;
+    public Sprite Heart3_1;
+    public Sprite Heart3_2;
+    public Sprite Heart4_1;
+    public Sprite Heart4_2;
+    public Sprite Heart5_1;
+    public Sprite Heart5_2;
+    public float HeartScale = 0.8f;
 
     private HorseController horseController;
 
@@ -48,29 +49,29 @@ public class UIController : MonoBehaviour
             image.enabled = true;
         }
 
-        Vector3 HeartScale = new Vector3(0.8f * horseController.currentLives, 0.8f, 0.8f);
+        Vector3 HeartDrawScale = new Vector3(HeartScale * horseController.currentLives, HeartScale, HeartScale);
         RectTransform recttransform = GetComponent<RectTransform>();
-        recttransform.localScale = HeartScale;
+        recttransform.localScale = HeartDrawScale;
 
         if (horseController.currentLives >= 5)
         {
-            image.sprite = Heart_5_1;
+            image.sprite = Heart5_1;
         }
         else if (horseController.currentLives == 4)
         {
-            image.sprite = Heart_4_1;
+            image.sprite = Heart4_1;
         }
         else if (horseController.currentLives == 3)
         {
-            image.sprite = Heart_3_1;
+            image.sprite = Heart3_1;
         }
         else if (horseController.currentLives == 2)
         {
-            image.sprite = Heart_2_1;
+            image.sprite = Heart2_1;
         }
         else if (horseController.currentLives == 1)
         {
-            image.sprite = Heart_1_1;
+            image.sprite = Heart1_1;
         }
     }
 }
